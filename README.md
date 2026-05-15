@@ -4,6 +4,8 @@ Composant Vue 3 d'arrière-plan interactif : une grille isométrique de cellules
 
 Démo configurable fournie avec un panneau de contrôle (presets, palette, symboles, transform, snippet à copier).
 
+Démo en ligne : https://grid-animated-background.vercel.app/
+
 ## Aperçu
 
 - Grille auto-dimensionnée à la fenêtre, régénérée au resize
