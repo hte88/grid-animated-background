@@ -86,7 +86,7 @@ const PRESETS: Record<string, Preset> = {
 }
 
 const SYMBOL_SETS: Record<SymbolPreset, (string | number)[]> = {
-    lotto: Array.from({ length: 49 }, (_, i) => i + 1),
+    lotto: Array.from({ length: 49 }, (_, index) => index + 1),
     letters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
     emojis: ['★', '✦', '✺', '✱', '✸', '✹', '❀', '✿', '◆', '◇', '●', '○'],
     glyphs: ['#', '/', '\\', '<', '>', '*', '+', '=', '@', '$', '%', '&'],
@@ -135,23 +135,23 @@ const respectReducedMotion = ref(true)
 const panelOpen = ref(true)
 const showSnippet = ref(false)
 
-const bgRef = useTemplateRef<InstanceType<typeof AnimatedBackground>>('bg')
+const backgroundRef = useTemplateRef<InstanceType<typeof AnimatedBackground>>('background')
 
 function regenerate() {
-    bgRef.value?.regenerate()
+    backgroundRef.value?.regenerate()
 }
 
 function applyPreset(key: string) {
-    const p = PRESETS[key]
-    if (!p) return
-    hoverColors.value = [...p.hoverColors]
-    baseBackground.value = p.baseBackground
-    borderColor.value = p.borderColor
-    cellSize.value = p.cellSize
-    glow.value = p.glow
-    skewX.value = p.skewX
-    skewY.value = p.skewY
-    symbolPreset.value = p.symbolPreset
+    const preset = PRESETS[key]
+    if (!preset) return
+    hoverColors.value = [...preset.hoverColors]
+    baseBackground.value = preset.baseBackground
+    borderColor.value = preset.borderColor
+    cellSize.value = preset.cellSize
+    glow.value = preset.glow
+    skewX.value = preset.skewX
+    skewY.value = preset.skewY
+    symbolPreset.value = preset.symbolPreset
 }
 
 function addColor() {
@@ -159,8 +159,14 @@ function addColor() {
     hoverColors.value = [...hoverColors.value, newColor.value]
 }
 
-function removeColor(idx: number) {
-    hoverColors.value = hoverColors.value.filter((_, i) => i !== idx)
+function removeColor(targetIndex: number) {
+    hoverColors.value = hoverColors.value.filter((_, index) => index !== targetIndex)
+}
+
+function updateColor(targetIndex: number, value: string) {
+    hoverColors.value = hoverColors.value.map((existing, index) =>
+        index === targetIndex ? value : existing
+    )
 }
 
 function resetTransform() {
@@ -171,32 +177,32 @@ function resetTransform() {
 }
 
 const snippet = computed(() => {
-    const props: string[] = []
-    props.push(`:cell-size="${cellSize.value}"`)
-    if (rotate.value !== 0) props.push(`:rotate="${rotate.value}"`)
-    if (skewX.value !== -48) props.push(`:skew-x="${skewX.value}"`)
-    if (skewY.value !== 14) props.push(`:skew-y="${skewY.value}"`)
-    if (scale.value !== 1) props.push(`:scale="${scale.value}"`)
-    props.push(`:hover-colors='${JSON.stringify(hoverColors.value)}'`)
-    props.push(`:toggle-probability="${toggleProbability.value}"`)
-    props.push(`:symbol-probability="${symbolProbability.value}"`)
-    props.push(`:pre-colored-probability="${preColoredProbability.value}"`)
-    if (interaction.value !== 'hover') props.push(`interaction="${interaction.value}"`)
-    if (rippleRadius.value > 0) props.push(`:ripple-radius="${rippleRadius.value}"`)
+    const attributes: string[] = []
+    attributes.push(`:cell-size="${cellSize.value}"`)
+    if (rotate.value !== 0) attributes.push(`:rotate="${rotate.value}"`)
+    if (skewX.value !== -48) attributes.push(`:skew-x="${skewX.value}"`)
+    if (skewY.value !== 14) attributes.push(`:skew-y="${skewY.value}"`)
+    if (scale.value !== 1) attributes.push(`:scale="${scale.value}"`)
+    attributes.push(`:hover-colors='${JSON.stringify(hoverColors.value)}'`)
+    attributes.push(`:toggle-probability="${toggleProbability.value}"`)
+    attributes.push(`:symbol-probability="${symbolProbability.value}"`)
+    attributes.push(`:pre-colored-probability="${preColoredProbability.value}"`)
+    if (interaction.value !== 'hover') attributes.push(`interaction="${interaction.value}"`)
+    if (rippleRadius.value > 0) attributes.push(`:ripple-radius="${rippleRadius.value}"`)
     if (glow.value) {
-        props.push(`glow`)
-        props.push(`:glow-intensity="${glowIntensity.value}"`)
+        attributes.push(`glow`)
+        attributes.push(`:glow-intensity="${glowIntensity.value}"`)
     }
     if (trail.value) {
-        props.push(`trail`)
-        props.push(`:trail-duration="${trailDuration.value}"`)
+        attributes.push(`trail`)
+        attributes.push(`:trail-duration="${trailDuration.value}"`)
     }
     if (autoWave.value) {
-        props.push(`auto-wave`)
-        props.push(`:wave-speed="${waveSpeed.value}"`)
+        attributes.push(`auto-wave`)
+        attributes.push(`:wave-speed="${waveSpeed.value}"`)
     }
-    if (!animated.value) props.push(`:animated="false"`)
-    return `<AnimatedBackground\n    ${props.join('\n    ')}\n/>`
+    if (!animated.value) attributes.push(`:animated="false"`)
+    return `<AnimatedBackground\n    ${attributes.join('\n    ')}\n/>`
 })
 
 const copied = ref(false)
@@ -216,7 +222,7 @@ async function copySnippet() {
         <!-- Background layer -->
         <div class="absolute inset-0">
             <AnimatedBackground
-                ref="bg"
+                ref="background"
                 :cell-size="cellSize"
                 :rotate="rotate"
                 :skew-x="skewX"
@@ -314,12 +320,12 @@ async function copySnippet() {
                     </h3>
                     <div class="flex flex-wrap gap-2">
                         <button
-                            v-for="(p, key) in PRESETS"
+                            v-for="(preset, key) in PRESETS"
                             :key="key"
                             class="rounded-md border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white transition hover:bg-white/10"
                             @click="applyPreset(key)"
                         >
-                            {{ p.name }}
+                            {{ preset.name }}
                         </button>
                     </div>
                 </section>
@@ -342,17 +348,17 @@ async function copySnippet() {
                             <span class="mb-1 block text-xs text-zinc-400">Interaction</span>
                             <div class="grid grid-cols-3 gap-1.5">
                                 <button
-                                    v-for="opt in ['hover', 'click', 'none'] as const"
-                                    :key="opt"
+                                    v-for="option in ['hover', 'click', 'none'] as const"
+                                    :key="option"
                                     class="rounded-md border px-2 py-1 text-xs transition"
                                     :class="
-                                        interaction === opt
+                                        interaction === option
                                             ? 'border-fuchsia-400 bg-fuchsia-500/20 text-fuchsia-100'
                                             : 'border-white/10 bg-white/5 text-white hover:bg-white/10'
                                     "
-                                    @click="interaction = opt"
+                                    @click="interaction = option"
                                 >
-                                    {{ opt }}
+                                    {{ option }}
                                 </button>
                             </div>
                         </div>
@@ -490,23 +496,19 @@ async function copySnippet() {
                             <span class="mb-1 block text-xs text-zinc-400">Palette</span>
                             <div class="flex flex-wrap gap-2">
                                 <div
-                                    v-for="(color, i) in hoverColors"
-                                    :key="i"
+                                    v-for="(color, index) in hoverColors"
+                                    :key="index"
                                     class="group relative flex items-center"
                                 >
                                     <input
                                         type="color"
                                         :value="color"
                                         class="h-7 w-7 cursor-pointer rounded border border-white/20 bg-transparent"
-                                        @input="
-                                            hoverColors = hoverColors.map((c, idx) =>
-                                                idx === i ? ($event.target as HTMLInputElement).value : c
-                                            )
-                                        "
+                                        @input="updateColor(index, ($event.target as HTMLInputElement).value)"
                                     />
                                     <button
                                         class="absolute -top-1 -right-1 hidden h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white group-hover:flex"
-                                        @click="removeColor(i)"
+                                        @click="removeColor(index)"
                                     >
                                         ×
                                     </button>
@@ -540,17 +542,17 @@ async function copySnippet() {
                     </h3>
                     <div class="grid grid-cols-3 gap-1.5">
                         <button
-                            v-for="opt in (['lotto', 'letters', 'emojis', 'glyphs', 'binary', 'custom'] as SymbolPreset[])"
-                            :key="opt"
+                            v-for="option in (['lotto', 'letters', 'emojis', 'glyphs', 'binary', 'custom'] as SymbolPreset[])"
+                            :key="option"
                             class="rounded-md border px-2 py-1 text-xs transition"
                             :class="
-                                symbolPreset === opt
+                                symbolPreset === option
                                     ? 'border-fuchsia-400 bg-fuchsia-500/20 text-fuchsia-100'
                                     : 'border-white/10 bg-white/5 text-white hover:bg-white/10'
                             "
-                            @click="symbolPreset = opt"
+                            @click="symbolPreset = option"
                         >
-                            {{ opt }}
+                            {{ option }}
                         </button>
                     </div>
                     <textarea

@@ -81,13 +81,13 @@ defineExpose({ regenerate })
         @touchend.passive="handleTouchEnd"
         @touchcancel.passive="handleTouchEnd"
     >
-        <div v-for="(row, r) in grid" :key="r" class="flex">
+        <div v-for="(row, rowIndex) in grid" :key="rowIndex" class="flex">
             <div
-                v-for="(cell, c) in row"
-                :key="c"
+                v-for="(cell, colIndex) in row"
+                :key="colIndex"
                 data-cell
-                :data-r="r"
-                :data-c="c"
+                :data-row="rowIndex"
+                :data-col="colIndex"
                 class="cell flex items-center justify-center font-bold text-white"
                 :class="effectiveAnimated ? 'transition-all duration-300 ease-linear cursor-pointer' : ''"
                 :style="{
@@ -99,13 +99,13 @@ defineExpose({ regenerate })
                         glow && (cell.hover || cell.toggledOn)
                             ? `0 0 ${glowIntensity}px ${cell.color}`
                             : 'none',
-                    '--r': r,
-                    '--c': c,
+                    '--row': rowIndex,
+                    '--col': colIndex,
                     '--cell-color': cell.color
                 } as Record<string, string | number>"
-                @mouseenter="handleEnter(r, c)"
-                @mouseleave="handleLeave(r, c)"
-                @click="handleClick(r, c)"
+                @mouseenter="handleEnter(rowIndex, colIndex)"
+                @mouseleave="handleLeave(rowIndex, colIndex)"
+                @click="handleClick(rowIndex, colIndex)"
             >
                 <span
                     v-if="cell.symbol !== null && (cell.hover || cell.toggledOn)"
@@ -121,14 +121,14 @@ defineExpose({ regenerate })
 <style scoped>
 .auto-wave-on .cell {
     animation: cellWave var(--wave-speed, 6s) ease-in-out infinite;
-    animation-delay: calc((var(--r, 0) + var(--c, 0)) * -0.08s);
+    animation-delay: calc((var(--row, 0) + var(--col, 0)) * -0.08s);
 }
 
 @keyframes cellWave {
     0%,
     85%,
     100% {
-        background-color: var(--base-bg, transparent);
+        background-color: transparent;
         box-shadow: none;
     }
     7%,
