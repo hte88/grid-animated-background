@@ -143,7 +143,9 @@ function regenerate() {
 
 function applyPreset(key: string) {
     const preset = PRESETS[key]
-    if (!preset) return
+    if (!preset) {
+        return
+    }
     hoverColors.value = [...preset.hoverColors]
     baseBackground.value = preset.baseBackground
     borderColor.value = preset.borderColor
@@ -155,7 +157,9 @@ function applyPreset(key: string) {
 }
 
 function addColor() {
-    if (!newColor.value) return
+    if (!newColor.value) {
+        return
+    }
     hoverColors.value = [...hoverColors.value, newColor.value]
 }
 
@@ -179,16 +183,28 @@ function resetTransform() {
 const snippet = computed(() => {
     const attributes: string[] = []
     attributes.push(`:cell-size="${cellSize.value}"`)
-    if (rotate.value !== 0) attributes.push(`:rotate="${rotate.value}"`)
-    if (skewX.value !== -48) attributes.push(`:skew-x="${skewX.value}"`)
-    if (skewY.value !== 14) attributes.push(`:skew-y="${skewY.value}"`)
-    if (scale.value !== 1) attributes.push(`:scale="${scale.value}"`)
+    if (rotate.value !== 0) {
+        attributes.push(`:rotate="${rotate.value}"`)
+    }
+    if (skewX.value !== -48) {
+        attributes.push(`:skew-x="${skewX.value}"`)
+    }
+    if (skewY.value !== 14) {
+        attributes.push(`:skew-y="${skewY.value}"`)
+    }
+    if (scale.value !== 1) {
+        attributes.push(`:scale="${scale.value}"`)
+    }
     attributes.push(`:hover-colors='${JSON.stringify(hoverColors.value)}'`)
     attributes.push(`:toggle-probability="${toggleProbability.value}"`)
     attributes.push(`:symbol-probability="${symbolProbability.value}"`)
     attributes.push(`:pre-colored-probability="${preColoredProbability.value}"`)
-    if (interaction.value !== 'hover') attributes.push(`interaction="${interaction.value}"`)
-    if (rippleRadius.value > 0) attributes.push(`:ripple-radius="${rippleRadius.value}"`)
+    if (interaction.value !== 'hover') {
+        attributes.push(`interaction="${interaction.value}"`)
+    }
+    if (rippleRadius.value > 0) {
+        attributes.push(`:ripple-radius="${rippleRadius.value}"`)
+    }
     if (glow.value) {
         attributes.push(`glow`)
         attributes.push(`:glow-intensity="${glowIntensity.value}"`)
@@ -201,7 +217,9 @@ const snippet = computed(() => {
         attributes.push(`auto-wave`)
         attributes.push(`:wave-speed="${waveSpeed.value}"`)
     }
-    if (!animated.value) attributes.push(`:animated="false"`)
+    if (!animated.value) {
+        attributes.push(`:animated="false"`)
+    }
     return `<AnimatedBackground\n    ${attributes.join('\n    ')}\n/>`
 })
 

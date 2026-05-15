@@ -42,7 +42,9 @@ export function useAnimatedGrid(options: AnimatedGridOptions) {
     }
 
     function pickSymbol() {
-        if (!options.symbols.length) return null
+        if (!options.symbols.length) {
+            return null
+        }
         return options.symbols[Math.floor(Math.random() * options.symbols.length)] ?? null
     }
 
@@ -68,24 +70,34 @@ export function useAnimatedGrid(options: AnimatedGridOptions) {
 
     const trailTimers = new Map<string, number>()
     function clearTrailTimers() {
-        trailTimers.forEach((timerId) => window.clearTimeout(timerId))
+        trailTimers.forEach((timerId) => {
+            window.clearTimeout(timerId)
+        })
         trailTimers.clear()
     }
 
     function activateCell(row: number, col: number, depth = 0) {
         const cell = grid.value?.[row]?.[col]
-        if (!cell) return
+        if (!cell) {
+            return
+        }
         if (cell.toggle) {
-            if (depth === 0) cell.toggledOn = !cell.toggledOn
+            if (depth === 0) {
+                cell.toggledOn = !cell.toggledOn
+            }
         } else {
             cell.hover = true
             if (options.trail) {
                 const key = `${row}-${col}`
                 const previousTimer = trailTimers.get(key)
-                if (previousTimer) window.clearTimeout(previousTimer)
+                if (previousTimer) {
+                    window.clearTimeout(previousTimer)
+                }
                 const timerId = window.setTimeout(() => {
                     const target = grid.value?.[row]?.[col]
-                    if (target && !target.toggle) target.hover = false
+                    if (target && !target.toggle) {
+                        target.hover = false
+                    }
                     trailTimers.delete(key)
                 }, options.trailDuration)
                 trailTimers.set(key, timerId)
@@ -102,54 +114,80 @@ export function useAnimatedGrid(options: AnimatedGridOptions) {
         for (let dRow = -radius; dRow <= radius; dRow++) {
             for (let dCol = -radius; dCol <= radius; dCol++) {
                 const distance = Math.sqrt(dRow * dRow + dCol * dCol)
-                if (distance > radius) continue
+                if (distance > radius) {
+                    continue
+                }
                 const neighborRow = row + dRow
                 const neighborCol = col + dCol
                 if (distance === 0) {
                     activateCell(neighborRow, neighborCol, 0)
                 } else {
-                    window.setTimeout(() => activateCell(neighborRow, neighborCol, 1), distance * 60)
+                    window.setTimeout(() => {
+                        activateCell(neighborRow, neighborCol, 1)
+                    }, distance * 60)
                 }
             }
         }
     }
 
     function handleEnter(row: number, col: number) {
-        if (!effectiveAnimated.value) return
-        if (options.interaction !== 'hover') return
+        if (!effectiveAnimated.value) {
+            return
+        }
+        if (options.interaction !== 'hover') {
+            return
+        }
         spreadRipple(row, col)
     }
 
     function handleLeave(row: number, col: number) {
         const cell = grid.value?.[row]?.[col]
-        if (!effectiveAnimated.value || !cell) return
-        if (options.interaction !== 'hover') return
-        if (options.trail) return
+        if (!effectiveAnimated.value || !cell) {
+            return
+        }
+        if (options.interaction !== 'hover') {
+            return
+        }
+        if (options.trail) {
+            return
+        }
         if (!cell.toggle) {
             window.setTimeout(() => {
                 const target = grid.value?.[row]?.[col]
-                if (target && !target.toggle) target.hover = false
+                if (target && !target.toggle) {
+                    target.hover = false
+                }
             }, 100)
         }
     }
 
     function handleClick(row: number, col: number) {
-        if (!effectiveAnimated.value) return
-        if (options.interaction !== 'click') return
+        if (!effectiveAnimated.value) {
+            return
+        }
+        if (options.interaction !== 'click') {
+            return
+        }
         const cell = grid.value?.[row]?.[col]
-        if (!cell) return
+        if (!cell) {
+            return
+        }
         cell.toggledOn = !cell.toggledOn
         if (!cell.toggle && options.rippleRadius > 0) {
             const radius = Math.max(0, Math.floor(options.rippleRadius))
             for (let dRow = -radius; dRow <= radius; dRow++) {
                 for (let dCol = -radius; dCol <= radius; dCol++) {
                     const distance = Math.sqrt(dRow * dRow + dCol * dCol)
-                    if (distance === 0 || distance > radius) continue
+                    if (distance === 0 || distance > radius) {
+                        continue
+                    }
                     const neighborRow = row + dRow
                     const neighborCol = col + dCol
                     window.setTimeout(() => {
                         const neighbor = grid.value?.[neighborRow]?.[neighborCol]
-                        if (neighbor) neighbor.toggledOn = !neighbor.toggledOn
+                        if (neighbor) {
+                            neighbor.toggledOn = !neighbor.toggledOn
+                        }
                     }, distance * 80)
                 }
             }
@@ -158,29 +196,45 @@ export function useAnimatedGrid(options: AnimatedGridOptions) {
 
     let resizeFrame = 0
     function onResize() {
-        if (resizeFrame) cancelAnimationFrame(resizeFrame)
-        resizeFrame = requestAnimationFrame(() => generateGrid())
+        if (resizeFrame) {
+            cancelAnimationFrame(resizeFrame)
+        }
+        resizeFrame = requestAnimationFrame(() => {
+            generateGrid()
+        })
     }
 
     const touchedCells = new Set<string>()
 
     function handleTouch(event: TouchEvent) {
-        if (!effectiveAnimated.value) return
-        if (options.interaction === 'none') return
+        if (!effectiveAnimated.value) {
+            return
+        }
+        if (options.interaction === 'none') {
+            return
+        }
         for (let i = 0; i < event.touches.length; i++) {
             const touch = event.touches[i]
-            if (!touch) continue
+            if (!touch) {
+                continue
+            }
             const elementAtPoint = document.elementFromPoint(
                 touch.clientX,
                 touch.clientY
             ) as HTMLElement | null
             const cellElement = elementAtPoint?.closest('[data-cell]') as HTMLElement | null
-            if (!cellElement) continue
+            if (!cellElement) {
+                continue
+            }
             const row = Number(cellElement.dataset.row)
             const col = Number(cellElement.dataset.col)
-            if (Number.isNaN(row) || Number.isNaN(col)) continue
+            if (Number.isNaN(row) || Number.isNaN(col)) {
+                continue
+            }
             const key = `${row}-${col}`
-            if (touchedCells.has(key)) continue
+            if (touchedCells.has(key)) {
+                continue
+            }
             touchedCells.add(key)
             if (options.interaction === 'hover') {
                 spreadRipple(row, col)
@@ -199,7 +253,9 @@ export function useAnimatedGrid(options: AnimatedGridOptions) {
                     const row = Number(rowStr)
                     const col = Number(colStr)
                     const cell = grid.value?.[row]?.[col]
-                    if (cell && !cell.toggle) cell.hover = false
+                    if (cell && !cell.toggle) {
+                        cell.hover = false
+                    }
                 })
             }, 300)
         }
@@ -210,7 +266,9 @@ export function useAnimatedGrid(options: AnimatedGridOptions) {
         typeof window !== 'undefined' && window.matchMedia
             ? window.matchMedia('(prefers-reduced-motion: reduce)')
             : null
-    if (reducedMotionMq) reducedMotion.value = reducedMotionMq.matches
+    if (reducedMotionMq) {
+        reducedMotion.value = reducedMotionMq.matches
+    }
     const reducedMotionListener = (event: MediaQueryListEvent) => {
         reducedMotion.value = event.matches
     }
@@ -224,7 +282,9 @@ export function useAnimatedGrid(options: AnimatedGridOptions) {
     onBeforeUnmount(() => {
         reducedMotionMq?.removeEventListener('change', reducedMotionListener)
         window.removeEventListener('resize', onResize)
-        if (resizeFrame) cancelAnimationFrame(resizeFrame)
+        if (resizeFrame) {
+            cancelAnimationFrame(resizeFrame)
+        }
         clearTrailTimers()
     })
 
@@ -236,7 +296,9 @@ export function useAnimatedGrid(options: AnimatedGridOptions) {
             options.preColoredProbability,
             options.symbols
         ],
-        () => generateGrid()
+        () => {
+            generateGrid()
+        }
     )
 
     return {
