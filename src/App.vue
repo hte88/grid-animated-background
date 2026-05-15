@@ -112,13 +112,7 @@ const symbolProbability = ref(0.15)
 const preColoredProbability = ref(0.009)
 const baseBackground = ref('rgba(255,255,255,0)')
 const borderColor = ref('rgba(255,255,255,0.04)')
-const hoverColors = ref<string[]>([
-    '#FF6B9D',
-    '#00D9FF',
-    '#7DFF8E',
-    '#FFD93D',
-    '#BD93F9'
-])
+const hoverColors = ref<string[]>(['#FF6B9D', '#00D9FF', '#7DFF8E', '#FFD93D', '#BD93F9'])
 const newColor = ref('#FF6B9D')
 
 const animated = ref(true)
@@ -269,9 +263,7 @@ async function copySnippet() {
         <!-- Title overlay -->
         <div
             class="pointer-events-none absolute top-8 z-10 -translate-x-1/2 text-center transition-[left] duration-300"
-            :class="[
-                panelOpen ? 'hidden sm:block left-[calc(50%-180px)]' : 'left-1/2'
-            ]"
+            :class="[panelOpen ? 'hidden sm:block left-[calc(50%-180px)]' : 'left-1/2']"
         >
             <h1
                 class="text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)] sm:text-5xl md:text-7xl"
@@ -297,10 +289,10 @@ async function copySnippet() {
             v-if="panelOpen"
             class="thin-scroll absolute top-0 right-0 z-20 h-full w-full overflow-y-auto border-l border-white/10 bg-black/80 backdrop-blur-md sm:w-[360px] sm:bg-black/70"
         >
-            <header class="sticky top-0 z-10 flex items-center justify-between border-b border-white/10 bg-black/60 px-4 py-3 backdrop-blur-md">
-                <h2 class="text-sm font-semibold tracking-wide text-white">
-                    ⚙ Controls
-                </h2>
+            <header
+                class="sticky top-0 z-10 flex items-center justify-between border-b border-white/10 bg-black/60 px-4 py-3 backdrop-blur-md"
+            >
+                <h2 class="text-sm font-semibold tracking-wide text-white">⚙ Controls</h2>
                 <div class="flex items-center gap-2">
                     <a
                         href="https://github.com/hte88/grid-animated-background"
@@ -309,8 +301,15 @@ async function copySnippet() {
                         class="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-white hover:bg-white/10"
                         title="Voir le code source sur GitHub"
                     >
-                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M12 .5C5.73.5.67 5.56.67 11.83c0 5.02 3.25 9.28 7.76 10.79.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.16.69-3.83-1.35-3.83-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.52-.29-5.18-1.26-5.18-5.62 0-1.24.44-2.26 1.18-3.06-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.93 10.93 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.12 3.04.74.8 1.18 1.82 1.18 3.06 0 4.37-2.67 5.33-5.21 5.61.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.66.79.55 4.51-1.51 7.75-5.77 7.75-10.79C23.33 5.56 18.27.5 12 .5Z" />
+                        <svg
+                            class="h-3.5 w-3.5"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M12 .5C5.73.5.67 5.56.67 11.83c0 5.02 3.25 9.28 7.76 10.79.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.16.69-3.83-1.35-3.83-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.52-.29-5.18-1.26-5.18-5.62 0-1.24.44-2.26 1.18-3.06-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.93 10.93 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.12 3.04.74.8 1.18 1.82 1.18 3.06 0 4.37-2.67 5.33-5.21 5.61.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.66.79.55 4.51-1.51 7.75-5.77 7.75-10.79C23.33 5.56 18.27.5 12 .5Z"
+                            />
                         </svg>
                         GitHub
                     </a>
@@ -356,11 +355,19 @@ async function copySnippet() {
                     <div class="space-y-3">
                         <label class="flex items-center justify-between gap-3">
                             <span>Animated</span>
-                            <input v-model="animated" type="checkbox" class="h-4 w-4 accent-fuchsia-500" />
+                            <input
+                                v-model="animated"
+                                type="checkbox"
+                                class="h-4 w-4 accent-fuchsia-500"
+                            />
                         </label>
                         <label class="flex items-center justify-between gap-3">
                             <span>Respect reduced-motion</span>
-                            <input v-model="respectReducedMotion" type="checkbox" class="h-4 w-4 accent-fuchsia-500" />
+                            <input
+                                v-model="respectReducedMotion"
+                                type="checkbox"
+                                class="h-4 w-4 accent-fuchsia-500"
+                            />
                         </label>
                         <div>
                             <span class="mb-1 block text-xs text-zinc-400">Interaction</span>
@@ -382,13 +389,24 @@ async function copySnippet() {
                         </div>
                         <label class="flex items-center justify-between gap-3">
                             <span>Auto-wave</span>
-                            <input v-model="autoWave" type="checkbox" class="h-4 w-4 accent-fuchsia-500" />
+                            <input
+                                v-model="autoWave"
+                                type="checkbox"
+                                class="h-4 w-4 accent-fuchsia-500"
+                            />
                         </label>
                         <div v-if="autoWave">
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Wave speed</span><span>{{ waveSpeed }}s</span>
                             </div>
-                            <input v-model.number="waveSpeed" type="range" min="1" max="20" step="0.5" class="w-full" />
+                            <input
+                                v-model.number="waveSpeed"
+                                type="range"
+                                min="1"
+                                max="20"
+                                step="0.5"
+                                class="w-full"
+                            />
                         </div>
                     </div>
                 </section>
@@ -401,31 +419,60 @@ async function copySnippet() {
                     <div class="space-y-3">
                         <label class="flex items-center justify-between gap-3">
                             <span>Glow</span>
-                            <input v-model="glow" type="checkbox" class="h-4 w-4 accent-fuchsia-500" />
+                            <input
+                                v-model="glow"
+                                type="checkbox"
+                                class="h-4 w-4 accent-fuchsia-500"
+                            />
                         </label>
                         <div v-if="glow">
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Glow intensity</span><span>{{ glowIntensity }}px</span>
                             </div>
-                            <input v-model.number="glowIntensity" type="range" min="0" max="60" step="1" class="w-full" />
+                            <input
+                                v-model.number="glowIntensity"
+                                type="range"
+                                min="0"
+                                max="60"
+                                step="1"
+                                class="w-full"
+                            />
                         </div>
 
                         <label class="flex items-center justify-between gap-3">
                             <span>Trail (fade-out)</span>
-                            <input v-model="trail" type="checkbox" class="h-4 w-4 accent-fuchsia-500" />
+                            <input
+                                v-model="trail"
+                                type="checkbox"
+                                class="h-4 w-4 accent-fuchsia-500"
+                            />
                         </label>
                         <div v-if="trail">
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Trail duration</span><span>{{ trailDuration }}ms</span>
                             </div>
-                            <input v-model.number="trailDuration" type="range" min="100" max="3000" step="50" class="w-full" />
+                            <input
+                                v-model.number="trailDuration"
+                                type="range"
+                                min="100"
+                                max="3000"
+                                step="50"
+                                class="w-full"
+                            />
                         </div>
 
                         <div>
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Ripple radius</span><span>{{ rippleRadius }}</span>
                             </div>
-                            <input v-model.number="rippleRadius" type="range" min="0" max="8" step="1" class="w-full" />
+                            <input
+                                v-model.number="rippleRadius"
+                                type="range"
+                                min="0"
+                                max="8"
+                                step="1"
+                                class="w-full"
+                            />
                         </div>
                     </div>
                 </section>
@@ -440,25 +487,56 @@ async function copySnippet() {
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Cell size</span><span>{{ cellSize }}px</span>
                             </div>
-                            <input v-model.number="cellSize" type="range" min="12" max="80" step="1" class="w-full" />
+                            <input
+                                v-model.number="cellSize"
+                                type="range"
+                                min="12"
+                                max="80"
+                                step="1"
+                                class="w-full"
+                            />
                         </div>
                         <div>
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
-                                <span>Toggle probability</span><span>{{ toggleProbability.toFixed(3) }}</span>
+                                <span>Toggle probability</span
+                                ><span>{{ toggleProbability.toFixed(3) }}</span>
                             </div>
-                            <input v-model.number="toggleProbability" type="range" min="0" max="0.2" step="0.005" class="w-full" />
+                            <input
+                                v-model.number="toggleProbability"
+                                type="range"
+                                min="0"
+                                max="0.2"
+                                step="0.005"
+                                class="w-full"
+                            />
                         </div>
                         <div>
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
-                                <span>Symbol probability</span><span>{{ symbolProbability.toFixed(2) }}</span>
+                                <span>Symbol probability</span
+                                ><span>{{ symbolProbability.toFixed(2) }}</span>
                             </div>
-                            <input v-model.number="symbolProbability" type="range" min="0" max="1" step="0.01" class="w-full" />
+                            <input
+                                v-model.number="symbolProbability"
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                class="w-full"
+                            />
                         </div>
                         <div>
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
-                                <span>Pre-colored probability</span><span>{{ preColoredProbability.toFixed(3) }}</span>
+                                <span>Pre-colored probability</span
+                                ><span>{{ preColoredProbability.toFixed(3) }}</span>
                             </div>
-                            <input v-model.number="preColoredProbability" type="range" min="0" max="0.1" step="0.001" class="w-full" />
+                            <input
+                                v-model.number="preColoredProbability"
+                                type="range"
+                                min="0"
+                                max="0.1"
+                                step="0.001"
+                                class="w-full"
+                            />
                         </div>
                     </div>
                 </section>
@@ -481,25 +559,53 @@ async function copySnippet() {
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Rotate</span><span>{{ rotate }}°</span>
                             </div>
-                            <input v-model.number="rotate" type="range" min="-180" max="180" step="1" class="w-full" />
+                            <input
+                                v-model.number="rotate"
+                                type="range"
+                                min="-180"
+                                max="180"
+                                step="1"
+                                class="w-full"
+                            />
                         </div>
                         <div>
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Skew X</span><span>{{ skewX }}°</span>
                             </div>
-                            <input v-model.number="skewX" type="range" min="-90" max="90" step="1" class="w-full" />
+                            <input
+                                v-model.number="skewX"
+                                type="range"
+                                min="-90"
+                                max="90"
+                                step="1"
+                                class="w-full"
+                            />
                         </div>
                         <div>
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Skew Y</span><span>{{ skewY }}°</span>
                             </div>
-                            <input v-model.number="skewY" type="range" min="-90" max="90" step="1" class="w-full" />
+                            <input
+                                v-model.number="skewY"
+                                type="range"
+                                min="-90"
+                                max="90"
+                                step="1"
+                                class="w-full"
+                            />
                         </div>
                         <div>
                             <div class="mb-1 flex justify-between text-xs text-zinc-400">
                                 <span>Scale</span><span>{{ scale.toFixed(2) }}</span>
                             </div>
-                            <input v-model.number="scale" type="range" min="0.4" max="2.5" step="0.05" class="w-full" />
+                            <input
+                                v-model.number="scale"
+                                type="range"
+                                min="0.4"
+                                max="2.5"
+                                step="0.05"
+                                class="w-full"
+                            />
                         </div>
                     </div>
                 </section>
@@ -522,7 +628,12 @@ async function copySnippet() {
                                         type="color"
                                         :value="color"
                                         class="h-7 w-7 cursor-pointer rounded border border-white/20 bg-transparent"
-                                        @input="updateColor(index, ($event.target as HTMLInputElement).value)"
+                                        @input="
+                                            updateColor(
+                                                index,
+                                                ($event.target as HTMLInputElement).value
+                                            )
+                                        "
                                     />
                                     <button
                                         class="absolute -top-1 -right-1 hidden h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] text-white group-hover:flex"
@@ -532,7 +643,11 @@ async function copySnippet() {
                                     </button>
                                 </div>
                                 <label class="flex items-center gap-1">
-                                    <input v-model="newColor" type="color" class="h-7 w-7 cursor-pointer rounded border border-white/20 bg-transparent" />
+                                    <input
+                                        v-model="newColor"
+                                        type="color"
+                                        class="h-7 w-7 cursor-pointer rounded border border-white/20 bg-transparent"
+                                    />
                                     <button
                                         class="h-7 rounded-md border border-white/10 bg-white/5 px-2 text-xs text-white hover:bg-white/10"
                                         @click="addColor"
@@ -544,11 +659,19 @@ async function copySnippet() {
                         </div>
                         <div>
                             <span class="mb-1 block text-xs text-zinc-400">Border</span>
-                            <input v-model="borderColor" type="text" class="w-full rounded-md border border-white/10 bg-black/40 px-2 py-1 text-xs text-white outline-none focus:border-fuchsia-400" />
+                            <input
+                                v-model="borderColor"
+                                type="text"
+                                class="w-full rounded-md border border-white/10 bg-black/40 px-2 py-1 text-xs text-white outline-none focus:border-fuchsia-400"
+                            />
                         </div>
                         <div>
                             <span class="mb-1 block text-xs text-zinc-400">Base background</span>
-                            <input v-model="baseBackground" type="text" class="w-full rounded-md border border-white/10 bg-black/40 px-2 py-1 text-xs text-white outline-none focus:border-fuchsia-400" />
+                            <input
+                                v-model="baseBackground"
+                                type="text"
+                                class="w-full rounded-md border border-white/10 bg-black/40 px-2 py-1 text-xs text-white outline-none focus:border-fuchsia-400"
+                            />
                         </div>
                     </div>
                 </section>
@@ -560,7 +683,14 @@ async function copySnippet() {
                     </h3>
                     <div class="grid grid-cols-3 gap-1.5">
                         <button
-                            v-for="option in (['lotto', 'letters', 'emojis', 'glyphs', 'binary', 'custom'] as SymbolPreset[])"
+                            v-for="option in [
+                                'lotto',
+                                'letters',
+                                'emojis',
+                                'glyphs',
+                                'binary',
+                                'custom'
+                            ] as SymbolPreset[]"
                             :key="option"
                             class="rounded-md border px-2 py-1 text-xs transition"
                             :class="
@@ -596,7 +726,10 @@ async function copySnippet() {
                         </button>
                     </div>
                     <div v-if="showSnippet" class="relative">
-                        <pre class="thin-scroll max-h-64 overflow-auto rounded-md border border-white/10 bg-black/60 p-3 text-[11px] leading-relaxed text-zinc-200">{{ snippet }}</pre>
+                        <pre
+                            class="thin-scroll max-h-64 overflow-auto rounded-md border border-white/10 bg-black/60 p-3 text-[11px] leading-relaxed text-zinc-200"
+                            >{{ snippet }}</pre
+                        >
                         <button
                             class="absolute top-2 right-2 rounded-md border border-white/10 bg-black/70 px-2 py-1 text-[10px] text-white hover:bg-black/90"
                             @click="copySnippet"

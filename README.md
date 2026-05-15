@@ -57,30 +57,30 @@ Le composant se positionne en `absolute` centré ; placez-le dans un parent `rel
 
 ## Props
 
-| Prop | Type | Défaut | Description |
-| --- | --- | --- | --- |
-| `cellSize` | `number` | `32` | Hauteur d'une cellule en px (la largeur est `cellSize × 2`). |
-| `rotate` | `number` | `0` | Rotation (deg). |
-| `skewX` | `number` | `-48` | Skew horizontal (deg). |
-| `skewY` | `number` | `14` | Skew vertical (deg). |
-| `scale` | `number` | `1` | Échelle. |
-| `hoverColors` | `string[]` | palette par défaut | Couleurs piochées aléatoirement par cellule. |
-| `toggleProbability` | `number` | `0.02` | Probabilité qu'une cellule soit de type « toggle » (état persistant). |
-| `symbolProbability` | `number` | `0.15` | Probabilité d'afficher un symbole quand la cellule est active. |
-| `preColoredProbability` | `number` | `0.009` | Probabilité qu'une cellule soit déjà allumée au démarrage. |
-| `symbols` | `(string \| number)[]` | `0..48` | Pool de symboles. |
-| `borderColor` | `string` | `rgba(255,255,255,0.04)` | Couleur de bordure des cellules. |
-| `baseBackground` | `string` | `rgba(255,255,255,0)` | Fond des cellules au repos. |
-| `animated` | `boolean` | `true` | Active/désactive globalement les transitions. |
-| `interaction` | `'hover' \| 'click' \| 'none'` | `'hover'` | Mode d'interaction. |
-| `rippleRadius` | `number` | `0` | Rayon de propagation autour de la cellule activée. |
-| `glow` | `boolean` | `false` | Ajoute un `box-shadow` coloré sur les cellules actives. |
-| `glowIntensity` | `number` | `12` | Rayon du glow en px. |
-| `trail` | `boolean` | `false` | En mode hover, la cellule reste allumée puis s'éteint progressivement. |
-| `trailDuration` | `number` | `600` | Durée du trail en ms. |
-| `autoWave` | `boolean` | `false` | Animation CSS en vague qui parcourt la grille. |
-| `waveSpeed` | `number` | `6` | Durée d'un cycle d'auto-wave en secondes. |
-| `respectReducedMotion` | `boolean` | `true` | Coupe animation et auto-wave si l'utilisateur a activé `prefers-reduced-motion`. |
+| Prop                    | Type                           | Défaut                   | Description                                                                      |
+| ----------------------- | ------------------------------ | ------------------------ | -------------------------------------------------------------------------------- |
+| `cellSize`              | `number`                       | `32`                     | Hauteur d'une cellule en px (la largeur est `cellSize × 2`).                     |
+| `rotate`                | `number`                       | `0`                      | Rotation (deg).                                                                  |
+| `skewX`                 | `number`                       | `-48`                    | Skew horizontal (deg).                                                           |
+| `skewY`                 | `number`                       | `14`                     | Skew vertical (deg).                                                             |
+| `scale`                 | `number`                       | `1`                      | Échelle.                                                                         |
+| `hoverColors`           | `string[]`                     | palette par défaut       | Couleurs piochées aléatoirement par cellule.                                     |
+| `toggleProbability`     | `number`                       | `0.02`                   | Probabilité qu'une cellule soit de type « toggle » (état persistant).            |
+| `symbolProbability`     | `number`                       | `0.15`                   | Probabilité d'afficher un symbole quand la cellule est active.                   |
+| `preColoredProbability` | `number`                       | `0.009`                  | Probabilité qu'une cellule soit déjà allumée au démarrage.                       |
+| `symbols`               | `(string \| number)[]`         | `0..48`                  | Pool de symboles.                                                                |
+| `borderColor`           | `string`                       | `rgba(255,255,255,0.04)` | Couleur de bordure des cellules.                                                 |
+| `baseBackground`        | `string`                       | `rgba(255,255,255,0)`    | Fond des cellules au repos.                                                      |
+| `animated`              | `boolean`                      | `true`                   | Active/désactive globalement les transitions.                                    |
+| `interaction`           | `'hover' \| 'click' \| 'none'` | `'hover'`                | Mode d'interaction.                                                              |
+| `rippleRadius`          | `number`                       | `0`                      | Rayon de propagation autour de la cellule activée.                               |
+| `glow`                  | `boolean`                      | `false`                  | Ajoute un `box-shadow` coloré sur les cellules actives.                          |
+| `glowIntensity`         | `number`                       | `12`                     | Rayon du glow en px.                                                             |
+| `trail`                 | `boolean`                      | `false`                  | En mode hover, la cellule reste allumée puis s'éteint progressivement.           |
+| `trailDuration`         | `number`                       | `600`                    | Durée du trail en ms.                                                            |
+| `autoWave`              | `boolean`                      | `false`                  | Animation CSS en vague qui parcourt la grille.                                   |
+| `waveSpeed`             | `number`                       | `6`                      | Durée d'un cycle d'auto-wave en secondes.                                        |
+| `respectReducedMotion`  | `boolean`                      | `true`                   | Coupe animation et auto-wave si l'utilisateur a activé `prefers-reduced-motion`. |
 
 ## Méthodes exposées
 

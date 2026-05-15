@@ -72,10 +72,12 @@ defineExpose({ regenerate })
         aria-hidden="true"
         class="pointer-events-auto absolute top-1/2 left-1/2 transform-gpu touch-none"
         :class="effectiveAutoWave ? 'auto-wave-on' : ''"
-        :style="{
-            transform: `translate(-50%, -50%) skewX(${skewX}deg) skewY(${skewY}deg) scale(${scale}) rotate(${rotate}deg)`,
-            '--wave-speed': `${waveSpeed}s`
-        } as Record<string, string>"
+        :style="
+            {
+                transform: `translate(-50%, -50%) skewX(${skewX}deg) skewY(${skewY}deg) scale(${scale}) rotate(${rotate}deg)`,
+                '--wave-speed': `${waveSpeed}s`
+            } as Record<string, string>
+        "
         @touchstart.passive="handleTouch"
         @touchmove.passive="handleTouch"
         @touchend.passive="handleTouchEnd"
@@ -89,20 +91,26 @@ defineExpose({ regenerate })
                 :data-row="rowIndex"
                 :data-col="colIndex"
                 class="cell flex items-center justify-center font-bold text-white"
-                :class="effectiveAnimated ? 'transition-all duration-300 ease-linear cursor-pointer' : ''"
-                :style="{
-                    width: `${cellSize * 2}px`,
-                    height: `${cellSize}px`,
-                    backgroundColor: cell.hover || cell.toggledOn ? cell.color : baseBackground,
-                    border: `0.5px solid ${borderColor}`,
-                    boxShadow:
-                        glow && (cell.hover || cell.toggledOn)
-                            ? `0 0 ${glowIntensity}px ${cell.color}`
-                            : 'none',
-                    '--row': rowIndex,
-                    '--col': colIndex,
-                    '--cell-color': cell.color
-                } as Record<string, string | number>"
+                :class="
+                    effectiveAnimated
+                        ? 'transition-all duration-300 ease-linear cursor-pointer'
+                        : ''
+                "
+                :style="
+                    {
+                        width: `${cellSize * 2}px`,
+                        height: `${cellSize}px`,
+                        backgroundColor: cell.hover || cell.toggledOn ? cell.color : baseBackground,
+                        border: `0.5px solid ${borderColor}`,
+                        boxShadow:
+                            glow && (cell.hover || cell.toggledOn)
+                                ? `0 0 ${glowIntensity}px ${cell.color}`
+                                : 'none',
+                        '--row': rowIndex,
+                        '--col': colIndex,
+                        '--cell-color': cell.color
+                    } as Record<string, string | number>
+                "
                 @mouseenter="handleEnter(rowIndex, colIndex)"
                 @mouseleave="handleLeave(rowIndex, colIndex)"
                 @click="handleClick(rowIndex, colIndex)"

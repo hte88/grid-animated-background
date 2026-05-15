@@ -1,0 +1,16 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": ["typescript", "vue", "unicorn", "oxc"],
+    "categories": {
+        "correctness": "error",
+        "suspicious": "warn",
+        "perf": "warn",
+        "style": "off"
+    },
+    "rules": {
+        "curly": "error",
+        "no-console": "warn",
+        "typescript/no-explicit-any": "error"
+    },
+    "ignorePatterns": ["dist", "node_modules", ".vite"]
+}
